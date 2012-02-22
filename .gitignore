@@ -6,6 +6,7 @@
 .bundle
 .DS_Store
 .idea
+.fog
 coverage
 doc/*
 docs/_site/*
