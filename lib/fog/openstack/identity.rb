@@ -55,6 +55,7 @@ module Fog
           @data ||= Hash.new do |hash, key|
             hash[key] = {
               :users => {},
+              :roles => {},
               :tenants => {}
             }
           end

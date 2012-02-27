@@ -9,10 +9,10 @@ module Fog
         attribute :email
         attribute :enabled
         attribute :name
-        attribute :tenantId
+        attribute :tenantId, :aliases => 'tenant_id'
         attribute :password
 
-        attr_accessor :email, :name, :tenantId, :enabled, :password
+        attr_accessor :email, :name, :tenant_id, :enabled, :password
 
         def initialize(attributes)
           @connection = attributes[:connection]
@@ -22,8 +22,8 @@ module Fog
 
         def save
           raise Fog::Errors::Error.new('Resaving an existing object may create a duplicate') if identity
-          requires :name, :tenantId, :password
-          data = connection.create_user(name, password, email, tenantId, enabled)
+          requires :name, :tenant_id, :password
+          data = connection.create_user(name, password, email, tenant_id, enabled)
           merge_attributes(data.body['user'])
           true
         end
@@ -55,9 +55,9 @@ module Fog
         end
 
         def roles
-          return Array.new unless tenantId
+          return Array.new unless tenant_id
           tenant = Fog::Identity::OpenStack::Tenant.
-            new(connection.get_tenant(tenantId).body['tenant'])
+            new(connection.get_tenant(tenant_id).body['tenant'])
 
           connection.roles(
             :tenant => tenant,

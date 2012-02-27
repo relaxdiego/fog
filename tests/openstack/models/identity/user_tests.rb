@@ -3,7 +3,7 @@ Shindo.tests("Fog::Identity[:openstack] | user", ['openstack']) do
   @instance = Fog::Identity[:openstack].users.new({
     :name      => 'User Name',
     :email     => 'test@fog.com',
-    :tenantId  =>  tenant_id,
+    :tenant_id => tenant_id,
     :password  => 'spoof',
     :enabled   => true
   })

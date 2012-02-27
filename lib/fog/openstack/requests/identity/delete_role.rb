@@ -7,7 +7,7 @@ module Fog
           request(
             :expects => [200, 204],
             :method => 'DELETE',
-            :path   => '/OS-KSADM/roles/%s' % role_id
+            :path   => "/OS-KSADM/roles/#{role_id}"
           )
         end
 
@@ -17,7 +17,7 @@ module Fog
 
         def delete_role(role_id)
           response = Excon::Response.new
-          if role = list_roles.body['roles'].detect {|_| _['id'] == role_id}
+          if role = list_roles.body['roles'][role_id]
             self.data[:roles].delete(role_id)
             response.status = 204
             response
