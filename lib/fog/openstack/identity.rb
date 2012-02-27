@@ -31,6 +31,9 @@ module Fog
       request :delete_tenant
 
       request :list_users
+      request :create_user
+      request :update_user
+      request :delete_user
       request :get_user_by_id
       request :get_user_by_name
 
@@ -38,11 +41,21 @@ module Fog
       request :list_roles_for_user_on_tenant
       request :list_user_global_roles
 
+      request :create_role
+      request :delete_role
+      request :delete_user_role
+      request :create_user_role
+      request :get_role
+      request :list_roles
+
+
+
       class Mock
         def self.data
           @data ||= Hash.new do |hash, key|
             hash[key] = {
               :users => {},
+              :roles => {},
               :tenants => {}
             }
           end

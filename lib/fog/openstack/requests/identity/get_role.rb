@@ -2,21 +2,25 @@ module Fog
   module Identity
     class OpenStack
       class Real
-        def list_users
+        def get_role(id)
           request(
             :expects => [200, 204],
             :method  => 'GET',
-            :path    => 'users'
+            :path    => "/OS-KSADM/roles/#{id}"
           )
         end
-      end # class Real
+      end
 
       class Mock
-        def list_users
+        def get_role(id)
           response = Excon::Response.new
-          response.status = 200
-          response.body = { 'users' => self.data[:users] }
-          response
+          if data = self.data[:roles][id]
+            response.status = 200
+            response.body = { 'role' => data }
+            response
+          else
+            raise Fog::Identity::OpenStack::NotFound
+          end
         end
       end # class Mock
     end # class OpenStack
