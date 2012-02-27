@@ -29,6 +29,7 @@ module Fog
       request :delete_image
 
 
+
       class Mock
         def self.data
           @data ||= Hash.new do |hash, key|
