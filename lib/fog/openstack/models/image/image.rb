@@ -32,7 +32,6 @@ module Fog
 
       def initialize(attributes)
         @connection = attributes[:connection]
-        attributes[:size] ||= 0
         super
       end
 
