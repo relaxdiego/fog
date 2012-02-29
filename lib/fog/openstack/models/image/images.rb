@@ -34,21 +34,34 @@ module Fog
           image.destroy
         end
 
-#        queries available through image service
-#        find_by_container_format=FORMAT
-#        find_by_disk_format=FORMAT
-#        find_by_status=STATUS
-#        find_by_size_min=BYTES
-#        find_by_size_max=BYTES
-
-        def method_missing(method_sym, *arguments, &block)
-          if method_sym.to_s =~ /^find_by_(.*)$/
-            load(connection.list_public_images_detailed($1 ,arguments.first).body['images'])
-          else
-            super
-          end
+        def find_by_name(name)
+          find_attribute(__method__, name)
         end
 
+        def find_by_container_format(format)
+          find_attribute(__method__, format)
+        end
+
+        def find_by_disk_format(format)
+          find_attribute(__method__, format)
+        end
+
+        def find_by_status(status)
+          find_attribute(__method__, status)
+        end
+
+        def find_by_size_min(size)
+          find_attribute(__method__, size)
+        end
+
+        def find_by_size_max(size)
+          find_attribute(__method__, size)
+        end
+
+        def find_attribute(attribute,value)
+          attribute = attribute.to_s.gsub("find_by_", "")
+          load(connection.list_public_images_detailed(attribute , value).body['images'])
+        end
       end
     end
   end

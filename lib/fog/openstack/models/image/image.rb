@@ -27,6 +27,7 @@ module Fog
         attribute :min_ram
         attribute :owner
         attribute :properties
+        attribute :location
 
 
       def initialize(attributes)
