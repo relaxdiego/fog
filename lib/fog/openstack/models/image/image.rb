@@ -27,11 +27,11 @@ module Fog
         attribute :min_ram
         attribute :owner
         attribute :properties
+        attribute :location
 
 
       def initialize(attributes)
         @connection = attributes[:connection]
-        attributes[:size] ||= 0
         super
       end
 
@@ -71,6 +71,11 @@ module Fog
       def members
         requires :id
         connection.get_image_members(self.id).body['members']
+      end
+
+      def metadata
+        requires :id
+        connection.get_image(self.id).headers
       end
 
     end
