@@ -8,7 +8,7 @@ module Fog
       requires :openstack_auth_url
       recognizes :openstack_auth_token, :openstack_management_url, :persistent,
                  :openstack_service_name, :openstack_tenant,
-                 :openstack_api_key, :openstack_username
+                 :openstack_api_key, :openstack_username, :openstack_current_user_id
 
       model_path 'fog/openstack/models/identity'
       model       :tenant
@@ -104,6 +104,8 @@ module Fog
 
           @connection_options = options[:connection_options] || {}
 
+          @openstack_current_user_id = options[:openstack_current_user_id]
+
           authenticate
 
           @persistent = options[:persistent] || false
@@ -114,7 +116,8 @@ module Fog
           { :provider                 => 'openstack',
             :openstack_auth_url       => @openstack_auth_uri.to_s,
             :openstack_auth_token     => @auth_token,
-            :openstack_management_url => @openstack_management_url }
+            :openstack_management_url => @openstack_management_url,
+            :openstack_current_user_id => @openstack_current_user_id}
         end
 
         def reload
@@ -173,6 +176,7 @@ module Fog
             @openstack_must_reauthenticate = false
             @auth_token = credentials[:token]
             @openstack_management_url = credentials[:server_management_url]
+            @openstack_current_user_id = credentials[:current_user_id]
             uri = URI.parse(@openstack_management_url)
           else
             @auth_token = @openstack_auth_token
