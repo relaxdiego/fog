@@ -16,12 +16,11 @@ module Fog
           response = Excon::Response.new
           response.status = 200
           response.body = {
-            'role'=>{
-               "id"=>"503df61a99d6461fb247cdb6a3f3a4dd", 
-               "name"=>"admin"
-               }
-             }
-          
+            'role' => {
+              'id' => '503df61a99d6461fb247cdb6a3f3a4dd',
+              'name' => 'admin'
+            }
+          }
           response
         end # def add_user_to_tenant
       end # class Mock
