@@ -28,6 +28,7 @@ module Fog
       request :add_member_to_image
       request :remove_member_from_image
       request :delete_image
+      request :set_tenant
 
       class Mock
         def self.data
