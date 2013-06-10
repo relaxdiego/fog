@@ -31,6 +31,7 @@ module Fog
              'serverId' => server_id,
              'device'   => device
           }
+          self.data[:volumes][volume_id] ||= { 'attachments' => [] }
           self.data[:volumes][volume_id]['attachments'] << data
           response.body = { 'volumeAttachment' => data }
           response
